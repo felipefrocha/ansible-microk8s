@@ -1,0 +1,30 @@
+- name: Update Ubuntu
+  import_tasks: ubuntu_update.yml
+
+- name: Install Snap
+  import_tasks: snap_install.yml
+
+- name: Install microk8s
+  import_tasks: microk8s_install.yml
+
+- name: Configure microk8s
+  import_tasks: microk8s_configure.yml
+
+
+
+- name: Configure Microk8s Modules
+  import_tasks: microk8s_configure_modules.yml
+
+- name: Configure Microk8s Kubectl
+  import_tasks: kubectl_configure.yml
+
+- name: Configure Microk8s Docker
+  import_tasks: docker_configure.yml
+  when: "{{ microk8s.enable_deamon }}"
+
+- name: Configure Microk8s ELK
+  import_tasks: microk8s_configure_elk.yml
+
+- name: Configure UFW
+  import_tasks: ufw_configure.yml
+  when: "{{ enable_ufw }}"

@@ -1,0 +1,29 @@
+---
+- name: Update Microk8s docker-daemon.json file
+  template:
+    src: "docker-daemon.json"
+    dest: "/var/snap/microk8s/current/args/docker-daemon.json"
+    owner: "root"
+    group: "root"
+
+
+
+- name: Alias docker
+  shell: snap alias microk8s.docker mdocker
+  args:
+    executable: /bin/bash
+
+- name: check zsh is present
+  shell: which zsh
+  register: result
+  ignore_errors: True
+
+- name: Debug 
+  debug:
+    msg: "{{ result }}"
+
+- name: Alias docker
+  shell: snap alias microk8s.docker mdocker
+  args:
+    executable: /bin/zsh
+  when: result.rc == 0

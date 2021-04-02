@@ -1,0 +1,33 @@
+---
+- name: Enable dns
+  shell: |
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+    microk8s enable dns
+  args:
+    executable: /bin/bash
+
+- name: Enable ingress
+  shell: |
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+    microk8s enable ingress
+  args:
+    executable: /bin/bash
+
+- name: Enable storage
+  shell: |
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+    microk8s enable storage
+  args:
+    executable: /bin/bash
+
+- name: Enable K8s Dashboard
+  shell: |
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+    microk8s enable dashboard
+  when: k8s_dashboard|default(False)|bool == True
+  args:
+    executable: /bin/bash

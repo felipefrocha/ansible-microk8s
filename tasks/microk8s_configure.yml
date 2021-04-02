@@ -1,0 +1,20 @@
+---
+- name: Group name
+  debug:
+    msg: "Group name and User {{ ansible_user }}"
+
+- name: Add the {{ansible_user }} to the group 'microk8s'
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    group: microk8s  
+
+- name: Set File Descriptor Limits for Microk8s
+  lineinfile:
+    dest: /var/snap/microk8s/current/args/containerd-env
+    line: "ulimit -n 65536"
+    state: present
+
+- name: Microk8s inspect
+  shell: microk8s inspect
+  args:
+    executable: /bin/bash

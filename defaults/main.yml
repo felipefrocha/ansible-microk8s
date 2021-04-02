@@ -1,0 +1,10 @@
+microk8s:
+  version: "1.21/stable"
+  enable_version: False
+  enable_deamon: False
+
+enable_ufw: False
+
+
+# Enable to install Kubernetes dashboard
+k8s_dashboard: False

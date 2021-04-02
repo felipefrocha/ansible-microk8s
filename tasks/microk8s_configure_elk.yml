@@ -1,0 +1,12 @@
+---
+- name: Allow Privileged for Kubelet (needed by Elasticsearch Helm chart)
+  lineinfile:
+    dest: /var/snap/microk8s/current/args/kubelet
+    line: "--allow-privileged=true"
+    state: present
+
+- name: Allow Privileged for K8s Apiserver (needed by Elasticsearch Helm chart)
+  lineinfile:
+    dest: /var/snap/microk8s/current/args/kube-apiserver
+    line: "--allow-privileged=true"
+    state: present

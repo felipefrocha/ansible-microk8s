@@ -1,0 +1,27 @@
+---
+- name: Disable Swap
+  command: swapoff -a
+
+- name: Install microk8s
+  become: yes
+  snap:
+    name: microk8s
+    classic: yes
+    channel: "{{ microk8s.version }}"
+    state: present
+  when: microk8s.enable_version
+
+- name: Install microk8s
+  become: yes
+  snap:
+    name: microk8s
+    classic: yes
+    state: present
+  when: not microk8s.enable_version
+
+- name: Microk8s status
+  shell: microk8s status --wait-ready
+  args:
+    executable: /bin/bash
+
+
